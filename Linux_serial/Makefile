@@ -9,7 +9,8 @@
 #*******************************************************************************
 
 OBJECTS =	serialutil.o \
-		serial_test.o
+		serial_test.o \
+		readhex.o
 
 CC = gcc
 
@@ -19,7 +20,7 @@ LDFLAGS =
 
 LIBS = -lm
 
-all: serial_test inet_client inet_server
+all: serial_test inet_client inet_server readhex
 
 inet_clent: inet_clent.o
 	$(CC) $(LDFLAGS) $(LIBS) $^ -o $@
@@ -30,9 +31,12 @@ inet_server: inet_server.o
 serial_test: serial_test.o serialutil.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
+readhex: readhex.o
+	$(CC) $(LDFLAGS) $^ -o $@
+
 .c.o:
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean :
 	echo *.o *.i *.s *~ \#*# core .#* .new* serial_test inet_server inet_client
-	rm -f *.o *.i *.s *~ \#*# core .#* .new* serial_test inet_server inet_client
+	rm -f *.o *.i *.s *~ \#*# core .#* .new* serial_test inet_server inet_client readhex
