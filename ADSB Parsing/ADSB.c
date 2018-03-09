@@ -7,6 +7,12 @@
 //
 //******************************************************************************
 //
+
+////////////////////////
+// STILL NOT WORKING ///
+////////////////////////
+
+
 // standard libraries
 #include <stdlib.h>
 #include <stdio.h>
@@ -15,21 +21,21 @@
 
 
 //global variables
-int new_data
-char* Data
-int N
+int new_data;
+char* Data;
+int N;
 
 typedef struct {
-    char* 'ICAO';
-    float 'lat';
-    float 'lon';
-    float 'altitude';
-    float 'heading'; 
-    float 'hor_vel';
-    float 'vert_vel';
-    char* 'callsign';
-    float 'tslc';
-    float 'TimeStamp';
+    char* ICAO;
+    float lat;
+    float lon;
+    float altitude;
+    float heading; 
+    float hor_vel;
+    float vert_vel;
+    char* callsign;
+    float tslc;
+    float TimeStamp;
 } ADSB_planes;
 
 
@@ -51,15 +57,16 @@ int main(void)
 //******************************************************************************   
 
 //get bits from serial connection
-Data=...
-
-char find='11111110';
+//Data=... 
+	// TODO 
+	
+char find = '11111110';
 Data = Data(find:NULL);
 
 while( sizeof (Data)) >= 46*8){
 
-Payload_length  = double(Data(2*8-1:3*8));
-Message_ID      = double(Data(6*8-1:7*8));
+Payload_length  = (double)(Data(2*8-1:3*8));
+Message_ID      = (double)(Data(6*8-1:7*8));
 
 clock_t Date_time = clock(NULL);
 
@@ -68,7 +75,7 @@ switch (Message_ID) {
     case 66:
     case 246:
     // NEED TO WORK THIS PART OUT AS THE THINGS HERE ARE BYTES AND BITS ARE NEEDED
-        ICAO    = sprintf('%02X%02X%02X%02X',Data(10:-1:7));        // ICAO Address  (uint32) -> HEX string
+        ICAO    = sprintf('%02X%02X%02X%02X', Data(10:-1:7));        // ICAO Address  (uint32) -> HEX string
         lat     = double(typecast(Data(11:14),  'int32'))*1e-7 ;    // Latitude  in ° (int32) * 1E7
         lon     = double(typecast(Data(15:18),  'int32'))*1e-7 ;    // Longitude in ° (int32) * 1E7
         altitude= double(typecast(Data(19:22),  'int32'))*1e-3 ;    // Altitude in m  (int32) * 1E3
